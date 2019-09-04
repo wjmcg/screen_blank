@@ -22,6 +22,8 @@ namespace screen_blank
 
         private void Init()
         {
+            Cursor = sw.Input.Cursors.None;
+
             Screen leftMost = Screen.AllScreens[0];
 
             if (Screen.AllScreens.Length > 1)
