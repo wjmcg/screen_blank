@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Forms;
+using System.Drawing;
+using sw = System.Windows;
 
 namespace screen_blank
 {
@@ -23,6 +15,37 @@ namespace screen_blank
         public MainWindow()
         {
             InitializeComponent();
+            Init();
+            DataContext = new AppDataContext();
         }
+
+
+        private void Init()
+        {
+            Screen leftMost = Screen.AllScreens[0];
+
+            if (Screen.AllScreens.Length > 1)
+            {
+                foreach(Screen nextScreen in Screen.AllScreens)
+                {
+                    if (nextScreen.Bounds.Left < leftMost.Bounds.Left) leftMost = nextScreen;
+                }
+
+                Top = leftMost.Bounds.Top;
+                Left = leftMost.Bounds.Left;
+                Width = leftMost.Bounds.Width;
+                Height = leftMost.Bounds.Height;
+                Topmost = true;
+
+            }
+            else
+            {
+                Environment.Exit(1);
+            }
+
+        }
+
+
+
     }
 }
