@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Drawing;
 using sw = System.Windows;
+using System.Threading.Tasks;
 
 namespace screen_blank
 {
@@ -12,11 +13,33 @@ namespace screen_blank
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
+
         public MainWindow()
         {
+
+
+
             InitializeComponent();
             Init();
             DataContext = new AppDataContext();
+
+            InitTask();
+
+        }
+
+
+        void InitTask()
+        {
+            Task.Run(async () =>
+            {
+                while (true)
+                {
+                    Dispatcher.Invoke(() => Init());
+                    await Task.Delay(1000);
+                }
+            });
         }
 
 
